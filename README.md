@@ -27,10 +27,10 @@ For this case study, I am asking the six phases of data analytics process:
 
 * Ask: Asking the right question 
 * Prepare: Collecting and using the data relevant to the business problem
-* Process: Process the data to find out error, inconsistencies, null values etc. in data and get rid of them so that the ineffectiveness in data doesn’t affects the business task and the insights we are going to develop from it.
+* Process: Process the data to find out errors, inconsistencies, null values etc. in data and get rid of them so that the ineffectiveness in data doesn’t affect the business task and the insights we are going to develop from it.
 * Analyze: Find and develop the trend, relationship and patterns in data that helps us solve our business task effectively.
 * Share: Create visualizations of our analysis and information to share it with stakeholders and others
-* Act: Provide recommendation to stakeholder on how to solve the business task and make informed decisions.
+* Act: Provide recommendations to stakeholders on how to solve the business task and make informed decisions.
 
 
 ## Phase I: Ask
@@ -60,11 +60,11 @@ Yearly data regarding this matter is provided and licensed by Motivate Internati
 
 How does it help you answer your question?
 
-The last column in the csv file i.e. member_casual gives information on if the riders with respective id’s are member or casual riders. This information can be helpful on further analysis as it helps on understanding on what way the casual and member riders use bike sharing differently which is our key business task as well.
+The last column in the csv file i.e. member_casual gives information on if the riders with respective id’s are member or casual riders. This information can be helpful on further analysis as it helps in understanding on what way the casual and member riders use bike sharing differently which is our key business task as well.
 
 Are there any problems with the data?
 
-There is no detail information about the riders. The rider id being the only identification element, same person may have been a rider with two or more different ids. Therefore I assume that each user id is a different user.
+There is no detailed information about the riders. The rider id being the only identification element, the same person may have been a rider with two or more different ids. Therefore I assume that each user id is a different user.
 
 Are there issues with bias or credibility in this data? Does your data ROCCC?
 
@@ -72,14 +72,14 @@ The [data](https://divvy-tripdata.s3.amazonaws.com/index.html)  is collected dir
 
 How are you addressing licensing, privacy, security, and accessibility?
 
-The  data-privacy issues prohibits  from using riders’ personally identifiable information. Also this data is licensed by Motivate International Inc as well.
+The  data-privacy issues prohibit using riders’ personally identifiable information. Also this data is licensed by Motivate International Inc as well.
 
 How did you verify the data’s integrity?
 
 
 ## Phase III: Process
 
-For this project, I've used the a year trip-data datasets i.e. 12 datasets dated from Jan 2021 to Dec 2021. I am using Postgresql to help process, clean and analyze my datasets. Firstly I imported all the .csv files of trip data from Jan 2021 to Dec 2021 to my database server. I verified the number of columns and datatype in each dataset to be same and merged them together in a new table that I created. And then I created a table using all the column names with their respective data types as stated by the original dataset.
+For this project, I've used a year trip-data datasets i.e. 12 datasets dated from Jan 2021 to Dec 2021. I am using Postgresql to help process, clean and analyze my datasets. Firstly I imported all the .csv files of trip data from Jan 2021 to Dec 2021 to my database server. I verified the number of columns and datatype in each dataset to be the same and merged them together in a new table that I created. And then I created a table using all the column names with their respective data types as stated by the original dataset.
 
 **Creating a new table in postgresql to store all the columns and values from 12 month separate csv files:**
 
@@ -104,15 +104,15 @@ member_casual varchar(50)
 ```
 
 
- And I imported all the csv files into the same table that I created. I used count function each time to make sure the number of rows imported are as per the original file. 
+ And I imported all the csv files into the same table that I created. I used the count function each time to make sure the number of rows imported are as per the original file. 
 
 Total of 5595063 rows are inserted into the table.
 
 **Cleaning and Analyzing Data:**
 
-Now I am analyzing the data to remove any null values, empty values, duplications, adding new columns with reference to datas from existing columns to get better insights on business task.
+Now I am analyzing the data to remove any null values, empty values, duplications, adding new columns with reference to datas from existing columns to get better insights on business tasks.
 
-I created a new column ride_length to calculate the trip duration i.e total time from ride started to ride ended. For this I used ALTER TABLE function to add a new column to the table and I used Extract function with epoch FROM to calculate the time difference between two time stamps in minutes. I also created new columns start_month and day_of_week to store the month and day values from the provided timestamps.
+I created a new column ride_length to calculate the trip duration i.e total time from ride started to ride ended. For this I used the ALTER TABLE function to add a new column to the table and I used Extract function with epoch FROM to calculate the time difference between two timestamps in minutes. I also created new columns start_month and day_of_week to store the month and day values from the provided timestamps.
 
 **Creating new column “ride_length” to calculate trip duration as the difference of started_at and ended_at column:**
 
@@ -142,7 +142,7 @@ ride_length > 1440
 ```
 
 
-Then I used COUNT and DISTINCT function to look for any duplications in the ride_id. Both total count and distinct count returned 4586829 rows which means there are no any duplications in the ride_id.
+Then I used the COUNT and DISTINCT function to look for any duplications in the ride_id. Both total count and distinct count returned 4586829 rows which means there are no any duplications in the ride_id.
 
 **Checking if there’s any duplication in rider id in ride_id column:**
 
@@ -159,12 +159,12 @@ FROM rider_data.rider_data2021
 
 ## Phase IV & V: Analyze and Share Insights:
 
-I have combined both the analyze and share phase in this same section here since both goes side by side. The tools I have used for data visualizing and sharing insights are postgresql, google sheets, tableau public and R studio.
+I have combined both the analyze and share phase in this same section here since both go side by side. The tools I have used for data visualizing and sharing insights are postgresql, google sheets, tableau public and R studio.
 
 
 ### Counting riders by the type of rider:
 
-Our dataset and the project scenario tells us that we have two types of riders- casual riders and member riders. For visualization about the type of rider, I firstly used COUNT function in sql to count total number of casual riders and member rider to see how they differ in number. 
+Our dataset and the project scenario tells us that we have two types of riders- casual riders and member riders. For visualization about the type of rider, I firstly used the COUNT function in sql to count the total number of casual riders and member riders to see how they differ in number. 
 
 **Counting number of casual and member riders:**
 
@@ -186,7 +186,7 @@ GROUP BY member_type
 ```
 
 
- This query returned number of casual riders as 2047043 and number of member riders as 2539786 in the year 2021. To create visualization for this data I used “R”- downloaded the “tidyverse” package and used ggplot and geom functions to create a pie chart which shows that 55.5% of the riders are member riders and the remaining 44.6% are casual riders.
+ This query returned the number of casual riders as 2047043 and number of member riders as 2539786 in the year 2021. To create visualization for this data I used “R”- downloaded the “tidyverse” package and used ggplot and geom functions to create a pie chart which shows that 55.5% of the riders are member riders and the remaining 44.6% are casual riders.
 
 **Creating pie chart visualization in R:**
 
@@ -220,7 +220,7 @@ ggplot(ridertype_count, aes(x = "", y = total_number, fill = member_type))+
 
 #### Counting rideable types by the type of ride:
 
-With the provided datasets, we have a column rideable_type which refers that both the rider types have three riding options for the bike- classic bike, electric bike and docked bike. I used sql to find the total number of rides by each particular type of ride and used google sheet to create a visualization.
+With the provided datasets, we have a column rideable_type which indicates that both the rider types have three riding options for the bike- classic bike, electric bike and docked bike. I used sql to find the total number of rides by each particular type of ride and used google sheet to create a visualization.
 
 
 ```
@@ -240,7 +240,7 @@ The above pie chart created in google sheets clearly states that among the three
 
 ### Monthly and weekly user traffic:
 
-I then studied  the month wise  data of riders to observe the trend in ridership throughout the year 2021. For this I firstly extracted the month from the given timestamps in data with the column started_at. I added two new columns as start_month and day_of_week to calculate respective months and day of weeks from provided timestamp to observe weekly and monthly traffic. I used postgresql in-built function to_char to extract month and day name from timestamp.
+I then studied  the month wise  data of riders to observe the trend in ridership throughout the year 2021. For this I firstly extracted the month from the given timestamps in data with the column started_at. I added two new columns as start_month and day_of_week to calculate respective months and day of weeks from the provided timestamp to observe weekly and monthly traffic. I used the postgresql in-built function to_char to extract month and day names from timestamps.
 
 
 ```
@@ -288,13 +288,13 @@ FROM temp_member;
 ```
 
 
-I used tableau public to create visualization showing the weekly and monthly ridership patterns of both the casual and rider members. 
+I used tableau public to create a visualization showing the weekly and monthly ridership patterns of both the casual and rider members. 
 
-The  tableau visualization with a side by side bar chart categorizing monthly ridership by rider type depicts that for both casual and member riders, _ridership peaked around July and hit the lowest at February_ before rebounding up sharply. Also, July and August seems to have received more casual riders than the member riders indicating that July and August can be an ideal month to do any marketing campaigns or programs to convert casual riders into member riders. The observations of ridership trends throughout the year indicate a seasonal pattern in cyclistic bike usage. It is more common for both members and casual riders to choose to ride in the summer months, when the weather is nice and the days are long and avoiding it in the cold winter and snowy months.
+The  tableau visualization with a side by side bar chart categorizing monthly ridership by rider type depicts that for both casual and member riders, _ridership peaked around July and hit the lowest at February_ before rebounding up sharply. Also, July and August seem to have received more casual riders than the member riders indicating that July and August can be an ideal month to do any marketing campaigns or programs to convert casual riders into member riders. The observations of ridership trends throughout the year indicate a seasonal pattern in cyclistic bike usage. It is more common for both members and casual riders to choose to ride in the summer months, when the weather is nice and the days are long and avoiding it in the cold winter and snowy months.
 
 **Calculating rides by rider type and day of a week:**
 
-The query below is used to calculate the weekly traffic of ridership of both rider types. I used two methods for this calculation in postgresql with first method being using in-built filter in average function in postgresql and another method being using having clause to filter member_casual column and using inner join to join two queries.
+The query below is used to calculate the weekly traffic of ridership of both rider types. I used two methods for this calculation in postgresql with the first method being using an in-built filter in the average function in postgresql and another method being using a clause to filter member_casual columns and using inner join to join two queries.
 
 **Calculating rides by rider type and day of a week:**
 
@@ -349,9 +349,9 @@ ORDER BY CASE
 
 Further to find out day of week having highest ridership, I created another tableau visualization  which shows that the trend of ridership for member riders is consistent throughout the week with a bit drop on Sunday but for casual riders, week day bike trips are significantly lower compared to member rides and peaking on weekend i.e. Saturday and Sunday.
 
-These usage patterns might indicate that rider members tend to use bikes on a daily basis as part of their work with their rides being consistent through the week days and a bit drop than other days in weekends whereas casual riders may be more interested in using bikes for recreational purposes with peak ride on weekend days. 
+These usage patterns might indicate that rider members tend to use bikes on a daily basis as part of their work with their rides being consistent through the week days and a bit lower than other days on weekends whereas casual riders may be more interested in using bikes for recreational purposes with peak ride on weekend days. 
 
-In addition, casual riders tend to spend more time on average bike ride than the  member riders, also suggesting that members use bikes primarily for point-to-point transportation constantly throughout the week for same purpose and less for leisure or exploration. 
+In addition, casual riders tend to spend more time on average bike riding than the  member riders, also suggesting that members use bikes primarily for point-to-point transportation constantly throughout the week for the same purpose and less for leisure or exploration. 
 
 The average trip taken by a casual rider is about 28 minutes, whereas the average trip taken by a  member rider is about 13 minutes.
 
@@ -362,10 +362,10 @@ The average trip taken by a casual rider is about 28 minutes, whereas the averag
 
 
 1. The analysis showed that clearly there are more member riders than the casual riders but not significantly more hence the company has a lot to do in marketing campaigns to be able to convert those casual riders into member riders as well. 
-2. The data suggests that classic bike is the most preferred bike type and docked bike is the lowest preferred bike type among both type of riders. The data suggested that in a year time docked bike has been used only once by the member rider.
-3. It can be inferred that causal riders are more likely to use their bikes for longer period of time than the member riders- may be member riders use it only for short ride transit from train stations to offices and home only and casual rider use it for sightseeing around and other entertainment purposes. Average ride length is constant for member rider throughout the year while for casual rider it peaked in weekend days which further justifies the above mentioned point as well.
+2. The data suggests that classic bikes are the most preferred bike type and docked bikes are the lowest preferred bike type among both types of riders. The data suggested that in a year time docked bikes have been used only once by the member rider.
+3. It can be inferred that casual riders are more likely to use their bikes for longer periods of time than the member riders- may be member riders use it only for short ride transit from train stations to offices and home only and casual riders use it for sightseeing around and other entertainment purposes. Average ride length is constant for member riders throughout the year while for casual riders it peaks on weekend days which further justifies the above mentioned point as well.
 4. Both rider type are inclined to use the ride mostly in the evening time- may be they use this ride for entertainment purpose only
-5. The ridership pattern for both the casual and member rider type peaked during July and it started dropping from August and dropped to lowest in February. This pattern might have relation with the seasonal changes stating that the ridership peaked during summer time with nice weather and long days and dropped significantly in the winter time because of cold and snow. The cyclist number started rising from february with peaking in july and started dropping from august with least in february.
-6. Casual riders are more likely to use rides in weekends and member riders in weekdays- may be member riders use this for home to office process and casuals for entertainment and sightseeing around as well.
+5. The ridership pattern for both the casual and member rider type peaked during July and it started dropping from August and dropped to lowest in February. This pattern might have something to do with the seasonal changes stating that the ridership peaked during summer time with nice weather and long days and dropped significantly in the winter time because of cold and snow. The cyclist number started rising from february with peaking in july and started dropping from august with least in february.
+6. Casual riders are more likely to use rides on weekends and member riders on weekdays- may be member riders use this for home to office processes and casuals for entertainment and sightseeing around as well.
 
 References
