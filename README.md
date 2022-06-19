@@ -209,13 +209,11 @@ ggplot(ridertype_count, aes(x = "", y = total_number, fill = member_type))+
   labs(title = "Overall rider count")+
   labs(fill = "Rider type")+
   theme(plot.title = element_text(vjust = -3))
-                 
+```                 
 
 
+![Overall rider count by type of rider](./images/riders-by-type-of-membership.png)
                                      Figure 1: Overall rider count by type of rider
-
-```
-
 
 
 #### Counting rideable types by the type of ride:
