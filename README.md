@@ -5,7 +5,7 @@ Bike share data analysis case study. Follows the steps of the data analysis proc
 
 # Introduction:
 
-This case study as a part of my Google Data Analytics Certificate capstone project is my take on utilizing my technical and analytical skills I learned in my entire course(from ask phase to prepare, process,analyze,share and act using different tools and platforms such as spreadsheets, SQL, tableau,R etc.) to perform a business task  and develop necessary insights for the data driven decision making. The case study involves analysis of historical data for a company named  Cyclistic, a bike sharing company located in Chicago, to design a new marketing strategy to convert casual riders into annual members.
+This case study as a part of my Google Data Analytics Certificate capstone project is my take on utilizing my technical and analytical skills I learned in my entire course(from ask phase to prepare, process,analyze,share and act using different tools and platforms such as spreadsheets, SQL, tableau,R etc.) to perform a business task  and develop necessary insights for the data driven decision making. The case study involves analysis of historical data for a company named  Cyclistic, a bike sharing company located in Chicago, to design a new marketing strategy to study how casual and member riders behave differently and what we can do to convert casual riders into annual members.
 
 
 # Scenario:
@@ -75,6 +75,8 @@ How are you addressing licensing, privacy, security, and accessibility?
 The  data-privacy issues prohibit using riders’ personally identifiable information. Also this data is licensed by Motivate International Inc as well.
 
 How did you verify the data’s integrity?
+
+The data being provided by the proper source ensures the data's integrity.
 
 
 ## Phase III: Process
@@ -231,6 +233,7 @@ FROM rider_data.rider_data2021
 ```
 
 
+![Total rides by the type of ride](./images/total-rides-by-the-type-of-ride.png)
                   Figure 2: Total rides by the type of ride 
 
 The above pie chart created in google sheets clearly states that among the three ride types offered by the cyclist company, classic bike with 70.7% of total rides is the most popular one and docked bike with 6.8% of total rides is the least popular one.
@@ -287,6 +290,10 @@ FROM temp_member;
 
 
 I used tableau public to create a visualization showing the weekly and monthly ridership patterns of both the casual and rider members. 
+
+![Categorized rides by month](./images/monthly-ride-by-member-type.png)
+                 
+         Figure 3: Casual vs member ride use throughout the month
 
 The  tableau visualization with a side by side bar chart categorizing monthly ridership by rider type depicts that for both casual and member riders, _ridership peaked around July and hit the lowest at February_ before rebounding up sharply. Also, July and August seem to have received more casual riders than the member riders indicating that July and August can be an ideal month to do any marketing campaigns or programs to convert casual riders into member riders. The observations of ridership trends throughout the year indicate a seasonal pattern in cyclistic bike usage. It is more common for both members and casual riders to choose to ride in the summer months, when the weather is nice and the days are long and avoiding it in the cold winter and snowy months.
 
@@ -347,13 +354,81 @@ ORDER BY CASE
 
 Further to find out day of week having highest ridership, I created another tableau visualization  which shows that the trend of ridership for member riders is consistent throughout the week with a bit drop on Sunday but for casual riders, week day bike trips are significantly lower compared to member rides and peaking on weekend i.e. Saturday and Sunday.
 
+![Categorized rides by day of week](./images/weekly-ride-by-member-type.png)
+                 
+         Figure 4: Casual vs member ride use throughout the day of a week
+
 These usage patterns might indicate that rider members tend to use bikes on a daily basis as part of their work with their rides being consistent through the week days and a bit lower than other days on weekends whereas casual riders may be more interested in using bikes for recreational purposes with peak ride on weekend days. 
 
-In addition, casual riders tend to spend more time on average bike riding than the  member riders, also suggesting that members use bikes primarily for point-to-point transportation constantly throughout the week for the same purpose and less for leisure or exploration. 
+In addition, casual riders tend to spend more time on average bike riding than the  member riders, also suggesting that members use bikes primarily for point-to-point transportation constantly throughout the week for the same purpose and less for leisure or exploration.
 
-The average trip taken by a casual rider is about 28 minutes, whereas the average trip taken by a  member rider is about 13 minutes.
 
 **Average Ride Length on day of week by member type:**
+
+Also the visualization below shows the average trip duration taken by both the type of riders each day a week.
+
+
+![Average ride length by member](./images/avgride-by-rider-type-by-week.png)
+                 
+         Figure 5: Casual vs member average ride length throughout the day of a week
+
+The above chart created in tableau shows that the average trip taken by a casual rider is about 28 minutes, whereas the average trip taken by a member rider is about 13 minutes meaning around half the average trip duration of casual rider.
+
+**Hourly traffic analysis:**
+
+For hourly analysis of rides, I first created a new column "hour" to the existing table with data type integer (int) to store hour values. Then I used postgresql in-built function "extract" to extract hour from the timestamps in started_at column.
+```
+ALTER TABLE rider_data.rider_data2021
+ADD hour_day int
+
+UPDATE  rider_data.rider_data2021
+SET hour_day = EXTRACT (HOUR from started_at)
+```
+Then I used a query in postgresql to find out number of riders (casual vs member) by hour of the day.
+
+```
+WITH temp_table AS(
+SELECT hour_day, member_casual,
+COUNT (CASE WHEN member_casual = 'member' THEN 1 ELSE NULL END) AS num_of_members,
+COUNT (CASE WHEN member_casual = 'casual' THEN 1 ELSE NULL END) AS num_of_casuals,
+COUNT(*) AS num_of_users
+FROM rider_data.rider_data2021
+GROUP BY hour_day, member_casual)
+SELECT member_casual, 
+CASE WHEN num_of_members = 0 THEN num_of_casuals ELSE num_of_members END AS member_count,
+hour_day
+FROM temp_table
+```
+
+With the data from above query, I then created a visualization in R to study hourly traffic of both the rider types- casual and member riders.
+
+```
+# Importing the csv file into R
+hour_day <-read_csv("/Users/user2/Desktop/projects/coursera data analytics/capstone project/queries/exports/hour_day.csv")
+
+# Viewing the file
+View(hour_day)
+
+#Loading ggplot2 from "tideyverse" package
+library(ggplot2)
+
+# Using ggplot and geom functions to create a area chart)
+ggplot(hour_day, aes(x = hour_day, y =member_count, fill = member_type ))+
+  geom_area()+
+  scale_y_continuous(labels = scales::comma)+
+  scale_x_discrete(limits = 1:23)+
+  xlab("Hour of day in 24 hours")+
+  ylab("No. of rides")+
+  labs(title = "Categorized rides by hour of the day")+
+  labs(fill = "Rider type")
+ 
+```
+
+The visualization below shows that both rider types use the ride mostly in the evening time and casual rider use ride significantly more than the member riders.
+
+![Hourly ride by rider type](./images/hourlytraffic-by-membertype.png)
+                 
+         Figure 6: Casual vs member hourly ride
 
 **CONCLUSION:**
 
@@ -364,6 +439,6 @@ The average trip taken by a casual rider is about 28 minutes, whereas the averag
 3. It can be inferred that casual riders are more likely to use their bikes for longer periods of time than the member riders- may be member riders use it only for short ride transit from train stations to offices and home only and casual riders use it for sightseeing around and other entertainment purposes. Average ride length is constant for member riders throughout the year while for casual riders it peaks on weekend days which further justifies the above mentioned point as well.
 4. Both rider type are inclined to use the ride mostly in the evening time- may be they use this ride for entertainment purpose only
 5. The ridership pattern for both the casual and member rider type peaked during July and it started dropping from August and dropped to lowest in February. This pattern might have something to do with the seasonal changes stating that the ridership peaked during summer time with nice weather and long days and dropped significantly in the winter time because of cold and snow. The cyclist number started rising from february with peaking in july and started dropping from august with least in february.
-6. Casual riders are more likely to use rides on weekends and member riders on weekdays- may be member riders use this for home to office processes and casuals for entertainment and sightseeing around as well.
+6. Casual riders are more likely to use rides on weekends and member riders on weekdays- may be member riders use this for home to office purposes and casuals for entertainment and sightseeing around as well.
 
 References
