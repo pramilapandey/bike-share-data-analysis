@@ -215,7 +215,8 @@ ggplot(ridertype_count, aes(x = "", y = total_number, fill = member_type))+
 
 
 ![Overall rider count by type of rider](./images/riders-by-type-of-membership.png)
-                                     Figure 1: Overall rider count by type of rider
+        
+        Figure 1: Overall rider count by type of rider
 
 
 #### Counting rideable types by the type of ride:
@@ -234,7 +235,8 @@ FROM rider_data.rider_data2021
 
 
 ![Total rides by the type of ride](./images/total-rides-by-the-type-of-ride.png)
-                  Figure 2: Total rides by the type of ride 
+        
+        Figure 2: Total rides by the type of ride 
 
 The above pie chart created in google sheets clearly states that among the three ride types offered by the cyclist company, classic bike with 70.7% of total rides is the most popular one and docked bike with 6.8% of total rides is the least popular one.
 
@@ -310,7 +312,7 @@ ggplot(ridecount_month, aes(x = fct_inorder(start_month), y = format(member_coun
 
 ![Categorized rides by month](./images/monthly-ride-by-member-type.png)
                  
-         Figure 3: Casual vs member ride use throughout the month
+        Figure 3: Casual vs member ride use throughout the month
 
 The  tableau visualization with a side by side bar chart categorizing monthly ridership by rider type depicts that for both casual and member riders, _ridership peaked around July and hit the lowest at February_ before rebounding up sharply. Also, July and August seem to have received more casual riders than the member riders indicating that July and August can be an ideal month to do any marketing campaigns or programs to convert casual riders into member riders. The observations of ridership trends throughout the year indicate a seasonal pattern in cyclistic bike usage. It is more common for both members and casual riders to choose to ride in the summer months, when the weather is nice and the days are long and avoiding it in the cold winter and snowy months.
 
@@ -373,7 +375,7 @@ Further to find out day of week having highest ridership, I created another tabl
 
 ![Categorized rides by day of week](./images/weekly-ride-by-member-type.png)
                  
-         Figure 4: Casual vs member ride use throughout the day of a week
+        Figure 4: Casual vs member ride use throughout the day of a week
 
 These usage patterns might indicate that rider members tend to use bikes on a daily basis as part of their work with their rides being consistent through the week days and a bit lower than other days on weekends whereas casual riders may be more interested in using bikes for recreational purposes with peak ride on weekend days. 
 
@@ -387,7 +389,7 @@ Also the visualization below shows the average trip duration taken by both the t
 
 ![Average ride length by member](./images/avgride-by-rider-type-by-week.png)
                  
-         Figure 5: Casual vs member average ride length throughout the day of a week
+        Figure 5: Casual vs member average ride length throughout the day of a week
 
 The above chart created in tableau shows that the average trip taken by a casual rider is about 28 minutes, whereas the average trip taken by a member rider is about 13 minutes meaning around half the average trip duration of casual rider.
 
@@ -445,7 +447,7 @@ The visualization below shows that both rider types use the ride mostly in the e
 
 ![Hourly ride by rider type](./images/hourlytraffic-by-membertype.png)
                  
-         Figure 6: Casual vs member hourly ride
+        Figure 6: Casual vs member hourly ride
 
 **CONCLUSION:**
 
