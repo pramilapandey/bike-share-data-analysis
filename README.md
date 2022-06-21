@@ -35,11 +35,11 @@ For this case study, I am asking the six phases of data analytics process:
 
 ## Phase I: Ask
 
-**Business Objective:  **Increasing future growth of the company by converting cyclist members into annual members via marketing campaigns
+**Business Objective**:  Increasing future growth of the company by converting cyclist members into annual members via marketing campaigns
 
-**Business Task: **How do annual members and casual riders use Cyclistic bikes differently?
+**Business Task**: How do annual members and casual riders use Cyclistic bikes differently?
 
-**Stakeholders: **The stakeholders in the projects are:
+**Stakeholders**: The stakeholders in the projects are:
 
 
 
