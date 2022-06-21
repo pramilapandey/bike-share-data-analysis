@@ -289,7 +289,24 @@ FROM temp_member;
 ```
 
 
-I used tableau public to create a visualization showing the weekly and monthly ridership patterns of both the casual and rider members. 
+I used R studio to create a visualization showing the monthly ridership patterns of both the casual and rider members. To create visualization in R, I firstly imported the csv file into R studio using read_csv and then with the use of ggplot2 from "tidyverse" package, I created the bar chart to study monthly ride patterns of both the rider types.
+
+```
+# Importing csv file into R using read_csv and storing it as ridecount_month
+ridecount_month <-read_csv("/Users/user2/Desktop/projects/coursera data analytics/capstone project/queries/exports/ridecount_month.csv")
+
+#Viewing the file
+View(ridecount_month)
+
+# Creating grouped bar graph using geom and ggplot functions  
+ggplot(ridecount_month, aes(x = fct_inorder(start_month), y = format(member_count, scientific = FALSE),fill=member_type))+
+  geom_bar(stat = 'identity', position = position_dodge())+
+  labs(title = "Categorized rides by month")+
+  xlab("Months")+
+  ylab("No. of rides")+
+  labs(fill = "Rider Type")
+  
+```
 
 ![Categorized rides by month](./images/monthly-ride-by-member-type.png)
                  
