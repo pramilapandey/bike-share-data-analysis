@@ -50,31 +50,31 @@ For this case study, I am asking the six phases of data analytics process:
 
 ## Phase II: Prepare
 
-Where is the date located?
+* Where is the date located?
 
 The [data](https://divvy-tripdata.s3.amazonaws.com/index.html) that I will be using for this project is provided and licensed by Motivate International Inc. 
 
-How is the data organized?
+* How is the data organized?
 
 Yearly data regarding this matter is provided and licensed by Motivate International Inc but for my analysis I am using the most recent data i.e. the last 5 months data of 2020. The data is organized in csv files monthly and these monthly csv files are stored in year wise directories so that it is easy to access. Each csv file consists of data stored in rows and columns, it contains 13 columns as ride_id, rideable_type, started_at, ended_at, start_station_name, start_station_id, end_station_name, end_station_id, longitudinal datas and so on. 
 
-How does it help you answer your question?
+* How does it help you answer your question?
 
 The last column in the csv file i.e. member_casual gives information on if the riders with respective id’s are member or casual riders. This information can be helpful on further analysis as it helps in understanding on what way the casual and member riders use bike sharing differently which is our key business task as well.
 
-Are there any problems with the data?
+* Are there any problems with the data?
 
 There is no detailed information about the riders. The rider id being the only identification element, the same person may have been a rider with two or more different ids. Therefore I assume that each user id is a different user.
 
-Are there issues with bias or credibility in this data? Does your data ROCCC?
+* Are there issues with bias or credibility in this data? Does your data ROCCC?
 
 The [data](https://divvy-tripdata.s3.amazonaws.com/index.html)  is collected directly by Motivate, Inc., the company that runs the Cyclistic Bike Share program for the City of Chicago. The data is comprehensive in that it consists of data for all the rides taken on the system. Also, the data is collected and updated monthly and yearly. Hence the date provided is reliable, original, comprehensive, current and is cited and be used for our analysis.
 
-How are you addressing licensing, privacy, security, and accessibility?
+* How are you addressing licensing, privacy, security, and accessibility?
 
 The  data-privacy issues prohibit using riders’ personally identifiable information. Also this data is licensed by Motivate International Inc as well.
 
-How did you verify the data’s integrity?
+* How did you verify the data’s integrity?
 
 The data being provided by the proper source ensures the data's integrity.
 
@@ -451,13 +451,13 @@ The visualization below shows that both rider types use the ride mostly in the e
 
 **Geo Data Analysis**
 
-For geo data analysis I used the columns with latitude and longitude values for start and end station name for both riders which helped me point out the most popular stations and how the riders are distributed throughtout the area. I use tableau to create geo data visualization.
+For geo data analysis I used the columns with latitude and longitude values for start and end station name for both riders which helped me point out the most popular stations and how the riders are distributed throughtout the area. I use tableau to create geo data visualization. F
 
 ![Geo data of casual riders](./images/geo-data-casual-riders.png)
                  
         Figure 7: Arrival and departure distribution (Casual riders)
 
-The above map shows the geographical distributions of casual member throughout the area. The map shows that they are mostly centered by the sea side and around the touristic spots. Further I used filter in tableau to filter the station names by trips per station, the differences in the size of dots indicates bigger the size more the members in that station and vice-versa. I created individual departure and arrival sheets in tableau public and added both of them to a new dashboard to make a interactive visualization.
+The above map shows the geographical distributions of casual member throughout the area. The map shows that they are mostly centered by the sea side and around the touristic spots. Further I used filter in tableau to filter the station names by trips per station, the differences in the size of dots indicates bigger the size more the members in that station and vice-versa. I created individual departure and arrival sheets in tableau public and added both of them to a new dashboard to make a interactive visualization. These dot sizes, changes in color of dots are done by the elements in tableau mark card such as color, size, detail etc. Further adding size, color to the number of members and start station name to detail in mark card helps us to get information on particular dot while hovering on it.
 
 The geo data analysis of member rider is as follows:
 
@@ -468,25 +468,27 @@ The geo data analysis of member rider is as follows:
  The geo data visualization for member riders in tableau using the same way as above shows that these riders are distributed through both the touristic side and office buildings side as well.
 
 
-**Phase V: Share Insights**
+## Phase V: Share Insights
 
 Now in this phase we’re ready to use these insights to make recommendations for the marketing team.
 
-* Rider Type *: The data suggests that there are clearly more member riders than the causal riders but not significantly much hence the company has a lot to do in marketing campaigns to be able to convert those casual riders into member riders as well.
+**Rider Type**: The data suggests that there are clearly more member riders than the causal riders but not significantly much hence the company has a lot to do in marketing campaigns to be able to convert those casual riders into member riders as well.
 
-* Ride type: The data suggests that classic bikes are the most preferred bike type and docked bikes are the lowest preferred bike type among both types of riders. The data suggested that in a year time docked bikes have been used only once by the member rider.
+**Ride type**: The data suggests that classic bikes are the most preferred bike type and docked bikes are the lowest preferred bike type among both types of riders. The data suggested that in a year time docked bikes have been used only once by the member rider.
 
-* Usage time:   Average ride length is constant for member riders throughout the year while for casual riders it peaks on weekend days which further justifies the above mentioned point as well.
+**Usage time**:   Average ride length is constant for member riders throughout the year while for casual riders it peaks on weekend days which further justifies the above mentioned point as well.
 Based on this finding, marketing team can create some ad campaigns such as offering some bonus rides for longer rides to attract casual riders.
 
-* Use cases: It can be inferred that casual riders are more likely to use their bikes for longer periods of time than the member riders- may be member riders use it only for short ride transit from train stations to offices and home only and casual riders use it for sightseeing around and other entertainment purposes. Casual riders are more likely to use rides on weekends and member riders on weekdays- may be member riders use this for home to office purposes and casuals for entertainment and sightseeing around as well.
+**Use cases**: It can be inferred that casual riders are more likely to use their bikes for longer periods of time than the member riders- may be member riders use it only for short ride transit from train stations to offices and home only and casual riders use it for sightseeing around and other entertainment purposes. Casual riders are more likely to use rides on weekends and member riders on weekdays- may be member riders use this for home to office purposes and casuals for entertainment and sightseeing around as well.
 Based on this finding, it’s worth considering to offer new types of membership focused on weekend rides and family membership (families tend to spend their weekends together) to casual riders so that we can convert them into member riders.
 
-* Seasoning: The ridership pattern for both the casual and member rider type peaked during July and it started dropping from August and dropped to lowest in February. This pattern might have something to do with the seasonal changes stating that the ridership peaked during summer time with nice weather and long days and dropped significantly in the winter time because of cold and snow. The cyclist number started rising from february with peaking in july and started dropping from august with least in february.
+**Seasoning**: The ridership pattern for both the casual and member rider type peaked during July and it started dropping from August and dropped to lowest in February. This pattern might have something to do with the seasonal changes stating that the ridership peaked during summer time with nice weather and long days and dropped significantly in the winter time because of cold and snow. The cyclist number started rising from february with peaking in july and started dropping from august with least in february.
 Based on this insight, July can be ideal time to do marketing campaigns and events to convert casual riders into member riders.
 
  
+## References:
+https://www.coursera.org/professional-certificates/google-data-analytics?
+https://www.postgresql.org/docs/
+https://medium.com/@mcasuga0/google-data-analytics-case-study-55a59ed3cf94
+https://public.tableau.com/app/profile/pram2230#!/
 
-
-
-References
