@@ -451,6 +451,21 @@ The visualization below shows that both rider types use the ride mostly in the e
 
 **Geo Data Analysis**
 
+For geo data analysis I used the columns with latitude and longitude values for start and end station name for both riders which helped me point out the most popular stations and how the riders are distributed throughtout the area. I use tableau to create geo data visualization.
+
+![Geo data of casual riders](./images/geo-data-casual-riders.png)
+                 
+        Figure 7: Arrival and departure distribution (Casual riders)
+
+The above map shows the geographical distributions of casual member throughout the area. The map shows that they are mostly centered by the sea side and around the touristic spots. Further I used filter in tableau to filter the station names by trips per station, the differences in the size of dots indicates bigger the size more the members in that station and vice-versa. I created individual departure and arrival sheets in tableau public and added both of them to a new dashboard to make a interactive visualization.
+
+The geo data analysis of member rider is as follows:
+
+![Geo data of member riders](./images/geo-data-member-riders.png)
+
+ Figure 8: Arrival and departure distribution (Member riders)
+
+ The geo data visualization for member riders in tableau using the same way as above shows that these riders are distributed through both the touristic side and office buildings side as well.
 
 
 **Phase V: Share Insights**
