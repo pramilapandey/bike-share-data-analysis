@@ -159,7 +159,7 @@ FROM rider_data.rider_data2021
 
 
 
-## Phase IV & V: Analyze and Share Insights:
+## Phase IV Analyze:
 
 I have combined both the analyze and share phase in this same section here since both go side by side. The tools I have used for data visualizing and sharing insights are postgresql, google sheets, tableau public and R studio.
 
@@ -449,15 +449,29 @@ The visualization below shows that both rider types use the ride mostly in the e
                  
         Figure 6: Casual vs member hourly ride
 
-**CONCLUSION:**
+**Geo Data Analysis**
 
 
 
-1. The analysis showed that clearly there are more member riders than the casual riders but not significantly more hence the company has a lot to do in marketing campaigns to be able to convert those casual riders into member riders as well. 
-2. The data suggests that classic bikes are the most preferred bike type and docked bikes are the lowest preferred bike type among both types of riders. The data suggested that in a year time docked bikes have been used only once by the member rider.
-3. It can be inferred that casual riders are more likely to use their bikes for longer periods of time than the member riders- may be member riders use it only for short ride transit from train stations to offices and home only and casual riders use it for sightseeing around and other entertainment purposes. Average ride length is constant for member riders throughout the year while for casual riders it peaks on weekend days which further justifies the above mentioned point as well.
-4. Both rider type are inclined to use the ride mostly in the evening time- may be they use this ride for entertainment purpose only
-5. The ridership pattern for both the casual and member rider type peaked during July and it started dropping from August and dropped to lowest in February. This pattern might have something to do with the seasonal changes stating that the ridership peaked during summer time with nice weather and long days and dropped significantly in the winter time because of cold and snow. The cyclist number started rising from february with peaking in july and started dropping from august with least in february.
-6. Casual riders are more likely to use rides on weekends and member riders on weekdays- may be member riders use this for home to office purposes and casuals for entertainment and sightseeing around as well.
+**Phase V: Share Insights**
+
+Now in this phase we’re ready to use these insights to make recommendations for the marketing team.
+
+* Rider Type *: The data suggests that there are clearly more member riders than the causal riders but not significantly much hence the company has a lot to do in marketing campaigns to be able to convert those casual riders into member riders as well.
+
+* Ride type: The data suggests that classic bikes are the most preferred bike type and docked bikes are the lowest preferred bike type among both types of riders. The data suggested that in a year time docked bikes have been used only once by the member rider.
+
+* Usage time:   Average ride length is constant for member riders throughout the year while for casual riders it peaks on weekend days which further justifies the above mentioned point as well.
+Based on this finding, marketing team can create some ad campaigns such as offering some bonus rides for longer rides to attract casual riders.
+
+* Use cases: It can be inferred that casual riders are more likely to use their bikes for longer periods of time than the member riders- may be member riders use it only for short ride transit from train stations to offices and home only and casual riders use it for sightseeing around and other entertainment purposes. Casual riders are more likely to use rides on weekends and member riders on weekdays- may be member riders use this for home to office purposes and casuals for entertainment and sightseeing around as well.
+Based on this finding, it’s worth considering to offer new types of membership focused on weekend rides and family membership (families tend to spend their weekends together) to casual riders so that we can convert them into member riders.
+
+* Seasoning: The ridership pattern for both the casual and member rider type peaked during July and it started dropping from August and dropped to lowest in February. This pattern might have something to do with the seasonal changes stating that the ridership peaked during summer time with nice weather and long days and dropped significantly in the winter time because of cold and snow. The cyclist number started rising from february with peaking in july and started dropping from august with least in february.
+Based on this insight, July can be ideal time to do marketing campaigns and events to convert casual riders into member riders.
+
+ 
+
+
 
 References
