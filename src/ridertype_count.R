@@ -1,7 +1,13 @@
-ridertype_count <-read_csv("/Users/user2/Desktop/projects/coursera data analytics/capstone project/queries/exports/membertpe_count.csv")
+# Install required packages
+install.packages("tidyverse")
 
+#loading ggplot2
 library(ggplot2)
 
+# Importing csv file into R using read_csv and the file directory
+ridertype_count <-read_csv("/Users/user2/Desktop/projects/coursera data analytics/capstone project/queries/exports/membertpe_count.csv")
+
+# Using ggplot and geom functions to create a pie chart
 ggplot(ridertype_count, aes(x = "", y = total_number, fill = member_type))+ 
   geom_col()+
   coord_polar(theta = "y")+
