@@ -50,31 +50,31 @@ For this case study, I am asking the six phases of data analytics process:
 
 ## Phase II: Prepare
 
-* Where is the date located?
+**Where is the date located?**
 
 The [data](https://divvy-tripdata.s3.amazonaws.com/index.html) that I will be using for this project is provided and licensed by Motivate International Inc. 
 
-* How is the data organized?
+**How is the data organized?**
 
 Yearly data regarding this matter is provided and licensed by Motivate International Inc but for my analysis I am using the most recent data i.e. the last 5 months data of 2020. The data is organized in csv files monthly and these monthly csv files are stored in year wise directories so that it is easy to access. Each csv file consists of data stored in rows and columns, it contains 13 columns as ride_id, rideable_type, started_at, ended_at, start_station_name, start_station_id, end_station_name, end_station_id, longitudinal datas and so on. 
 
-* How does it help you answer your question?
+**How does it help you answer your question?**
 
 The last column in the csv file i.e. member_casual gives information on if the riders with respective id’s are member or casual riders. This information can be helpful on further analysis as it helps in understanding on what way the casual and member riders use bike sharing differently which is our key business task as well.
 
-* Are there any problems with the data?
+**Are there any problems with the data?**
 
 There is no detailed information about the riders. The rider id being the only identification element, the same person may have been a rider with two or more different ids. Therefore I assume that each user id is a different user.
 
-* Are there issues with bias or credibility in this data? Does your data ROCCC?
+**Are there issues with bias or credibility in this data? Does your data ROCCC?**
 
 The [data](https://divvy-tripdata.s3.amazonaws.com/index.html)  is collected directly by Motivate, Inc., the company that runs the Cyclistic Bike Share program for the City of Chicago. The data is comprehensive in that it consists of data for all the rides taken on the system. Also, the data is collected and updated monthly and yearly. Hence the date provided is reliable, original, comprehensive, current and is cited and be used for our analysis.
 
-* How are you addressing licensing, privacy, security, and accessibility?
+**How are you addressing licensing, privacy, security, and accessibility?**
 
 The  data-privacy issues prohibit using riders’ personally identifiable information. Also this data is licensed by Motivate International Inc as well.
 
-* How did you verify the data’s integrity?
+**How did you verify the data’s integrity?**
 
 The data being provided by the proper source ensures the data's integrity.
 
@@ -196,6 +196,8 @@ GROUP BY member_type
 ```
 # Installing required packages
 install.packages("tidyverse")
+
+#Loading ggplot2
 library(ggplot2)
 
 # Importing csv file into R using read_csv and the file directory
@@ -318,10 +320,44 @@ The  tableau visualization with a side by side bar chart categorizing monthly ri
 
 **Calculating rides by rider type and day of a week:**
 
-The query below is used to calculate the weekly traffic of ridership of both rider types. I used two methods for this calculation in postgresql with the first method being using an in-built filter in the average function in postgresql and another method being using a clause to filter member_casual columns and using inner join to join two queries.
+The query below is used to calculate the weekly traffic of ridership of both rider types. 
 
-**Calculating rides by rider type and day of a week:**
+WITH temp_member AS (
+SELECT day_of_week,
+CASE WHEN member_casual = 'member' THEN 'member' ELSE 'casual' END AS member_type,
+COUNT (CASE WHEN member_casual = 'member' THEN 1 ELSE NULL END) AS num_of_members,
+COUNT (CASE WHEN member_casual = 'casual' THEN 1 ELSE NULL END) AS num_of_casuals
+FROM rider_data.rider_data2021
+GROUP BY day_of_week, member_casual 
+ORDER BY CASE
+          WHEN day_of_week = 'Monday' THEN 0
+          WHEN day_of_week = 'Tuesday' THEN 1
+          WHEN day_of_week = 'Wednesday' THEN 2
+          WHEN day_of_week = 'Thursday' THEN 3
+          WHEN day_of_week = 'Friday' THEN 4
+          WHEN day_of_week = 'Saturday' THEN 5
+          WHEN day_of_week = 'Sunday' THEN 6
+     END ASC
+) 
+SELECT member_type,
+CASE WHEN num_of_members =0 THEN num_of_casuals ELSE num_of_members END AS member_count,
+day_of_week
+FROM temp_member;
 
+
+Further to find out day of week having highest ridership, I created another tableau visualization  which shows that the trend of ridership for member riders is consistent throughout the week with a bit drop on Sunday but for casual riders, week day bike trips are significantly lower compared to member rides and peaking on weekend i.e. Saturday and Sunday.
+
+![Categorized rides by day of week](./images/weekly-ride-by-member-type.png)
+                 
+        Figure 4: Casual vs member ride use throughout the day of a week
+
+These usage patterns might indicate that rider members tend to use bikes on a daily basis as part of their work with their rides being consistent through the week days and a bit lower than other days on weekends whereas casual riders may be more interested in using bikes for recreational purposes with peak ride on weekend days. 
+
+In addition, casual riders tend to spend more time on average bike riding than the  member riders, also suggesting that members use bikes primarily for point-to-point transportation constantly throughout the week for the same purpose and less for leisure or exploration.
+
+
+**Average Ride Length on day of week by member type:**
+To calculate average ride length on a day of week by member typr, I used two methods in postgresql with the first method being using an in-built filter in the average function in postgresql and another method being using a clause to filter member_casual columns and using inner join to join two queries.
 
 ```
 -- First method using filter in average function    
@@ -370,19 +406,6 @@ ORDER BY CASE
 
 ```
 
-
-Further to find out day of week having highest ridership, I created another tableau visualization  which shows that the trend of ridership for member riders is consistent throughout the week with a bit drop on Sunday but for casual riders, week day bike trips are significantly lower compared to member rides and peaking on weekend i.e. Saturday and Sunday.
-
-![Categorized rides by day of week](./images/weekly-ride-by-member-type.png)
-                 
-        Figure 4: Casual vs member ride use throughout the day of a week
-
-These usage patterns might indicate that rider members tend to use bikes on a daily basis as part of their work with their rides being consistent through the week days and a bit lower than other days on weekends whereas casual riders may be more interested in using bikes for recreational purposes with peak ride on weekend days. 
-
-In addition, casual riders tend to spend more time on average bike riding than the  member riders, also suggesting that members use bikes primarily for point-to-point transportation constantly throughout the week for the same purpose and less for leisure or exploration.
-
-
-**Average Ride Length on day of week by member type:**
 
 Also the visualization below shows the average trip duration taken by both the type of riders each day a week.
 
@@ -455,17 +478,26 @@ For geo data analysis I used the columns with latitude and longitude values for 
 
 ![Geo data of casual riders](./images/geo-data-casual-riders.png)
                  
-        Figure 7: Arrival and departure distribution (Casual riders)
+    Figure 7: Arrival and departure distribution (Casual riders)
 
 The above map shows the geographical distributions of casual member throughout the area. The map shows that they are mostly centered by the sea side and around the touristic spots. Further I used filter in tableau to filter the station names by trips per station, the differences in the size of dots indicates bigger the size more the members in that station and vice-versa. I created individual departure and arrival sheets in tableau public and added both of them to a new dashboard to make a interactive visualization. These dot sizes, changes in color of dots are done by the elements in tableau mark card such as color, size, detail etc. Further adding size, color to the number of members and start station name to detail in mark card helps us to get information on particular dot while hovering on it.
+Further using the filter in tableau, I have filtered out top 5 most popular arrival sttaions of casual riders.
+
+![Top 5 popular arrival stations](./images/most-popular-arrival-stations-casual-riders.png)
+                 
+    Figure 8: Top 5 most popular arrival stations (Casual Riders)
 
 The geo data analysis of member rider is as follows:
 
 ![Geo data of member riders](./images/geo-data-member-riders.png)
 
- Figure 8: Arrival and departure distribution (Member riders)
+   Figure 9: Arrival and departure distribution (Member riders)
 
- The geo data visualization for member riders in tableau using the same way as above shows that these riders are distributed through both the touristic side and office buildings side as well.
+ The geo data visualization for member riders in tableau using the same way as above shows that these riders are distributed through both the touristic side and office buildings side as well. The most popular departure stations of member riders are as follows:
+
+![Top 5 popular departure stations](./images/most-popular-departure-stations-member-riders.png)
+
+   Figure 10: Top 5 most popular departure stations (Member Riders)
 
 
 ## Phase V: Share Insights
@@ -488,7 +520,14 @@ Based on this insight, July can be ideal time to do marketing campaigns and even
  
 ## References:
 https://www.coursera.org/professional-certificates/google-data-analytics?
+
 https://www.postgresql.org/docs/
-https://medium.com/@mcasuga0/google-data-analytics-case-study-55a59ed3cf94
+
 https://public.tableau.com/app/profile/pram2230#!/
+
+https://ggplot2.tidyverse.org/
+
+https://help.tableau.com/current/pro/desktop/en-us/gettingstarted_overview.htm
+
+
 
