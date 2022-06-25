@@ -3,6 +3,20 @@ Bike share data analysis case study. Follows the steps of the data analysis proc
 
 **Case Study: How does a bike-share navigate speedy success?**
 
+- [bike-share-data-analysis](#bike-share-data-analysis)
+- [Introduction:](#introduction)
+- [Scenario:](#scenario)
+- [Approach:](#approach)
+  - [Phase I: Ask](#phase-i-ask)
+  - [Phase II: Prepare](#phase-ii-prepare)
+  - [Phase III: Process](#phase-iii-process)
+  - [Phase IV Analyze:](#phase-iv-analyze)
+    - [Counting riders by the type of rider:](#counting-riders-by-the-type-of-rider)
+      - [Counting rideable types by the type of ride:](#counting-rideable-types-by-the-type-of-ride)
+    - [Monthly and weekly user traffic:](#monthly-and-weekly-user-traffic)
+  - [Phase V: Share Insights](#phase-v-share-insights)
+  - [References:](#references)
+
 # Introduction:
 
 This case study as a part of my Google Data Analytics Certificate capstone project is my take on utilizing my technical and analytical skills I learned in my entire course(from ask phase to prepare, process,analyze,share and act using different tools and platforms such as spreadsheets, SQL, tableau,R etc.) to perform a business task  and develop necessary insights for the data driven decision making. The case study involves analysis of historical data for a company named  Cyclistic, a bike sharing company located in Chicago, to design a new marketing strategy to study how casual and member riders behave differently and what we can do to convert casual riders into annual members.
@@ -316,6 +330,7 @@ The  tableau visualization with a side by side bar chart categorizing monthly ri
 
 The query below is used to calculate the weekly traffic of ridership of both rider types. 
 
+```
 WITH temp_member AS (
 SELECT day_of_week,
 CASE WHEN member_casual = 'member' THEN 'member' ELSE 'casual' END AS member_type,
@@ -325,7 +340,7 @@ FROM rider_data.rider_data2021
 GROUP BY day_of_week, member_casual 
 ORDER BY CASE
           WHEN day_of_week = 'Monday' THEN 0
-          WHEN day_of_week = 'Tuesday' THEN 1
+          WHEN day_of_week  = 'Tuesday' THEN 1
           WHEN day_of_week = 'Wednesday' THEN 2
           WHEN day_of_week = 'Thursday' THEN 3
           WHEN day_of_week = 'Friday' THEN 4
@@ -337,6 +352,7 @@ SELECT member_type,
 CASE WHEN num_of_members =0 THEN num_of_casuals ELSE num_of_members END AS member_count,
 day_of_week
 FROM temp_member;
+```
 
 
 Further to find out day of week having highest ridership, I created another tableau visualization  which shows that the trend of ridership for member riders is consistent throughout the week with a bit drop on Sunday but for casual riders, week day bike trips are significantly lower compared to member rides and peaking on weekend i.e. Saturday and Sunday.
