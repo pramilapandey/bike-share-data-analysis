@@ -21,9 +21,7 @@ The analyst team wants to know how annual members and casual riders differ, why 
 
 So with the introduction of the project and the actual scenario of the case stated above, I am the junior data analyst analyzing this task for the bike sharing company- cyclist. 
 
-For this case study, I am asking the six phases of data analytics process:
-
-
+For this case study, I am using the six phases of data analytics process:
 
 * Ask: Asking the right question 
 * Prepare: Collecting and using the data relevant to the business problem
@@ -41,8 +39,6 @@ For this case study, I am asking the six phases of data analytics process:
 
 **Stakeholders**: The stakeholders in the projects are:
 
-
-
 * Lily Moreno: The director of marketing who is responsible for the development of campaigns and initiatives to promote the bike-share program. 
 * Cyclistic marketing analytics team: A team of data analysts who are responsible for collecting, analyzing, and reporting data that helps guide Cyclistic marketing strategy.
 * Cyclistic executive team: The executive team will decide whether to approve the recommended marketing program.
@@ -56,7 +52,7 @@ The [data](https://divvy-tripdata.s3.amazonaws.com/index.html) that I will be us
 
 **How is the data organized?**
 
-Yearly data regarding this matter is provided and licensed by Motivate International Inc but for my analysis I am using the most recent data i.e. the last 5 months data of 2020. The data is organized in csv files monthly and these monthly csv files are stored in year wise directories so that it is easy to access. Each csv file consists of data stored in rows and columns, it contains 13 columns as ride_id, rideable_type, started_at, ended_at, start_station_name, start_station_id, end_station_name, end_station_id, longitudinal datas and so on. 
+Yearly data regarding this matter is provided and licensed by Motivate International Inc but for my analysis I am using the most recent data i.e. the last 12 months data of 2021. The data is organized in csv files monthly and these monthly csv files are stored in year wise directories so that it is easy to access. Each csv file consists of data stored in rows and columns, it contains 13 columns as ride_id, rideable_type, started_at, ended_at, start_station_name, start_station_id, end_station_name, end_station_id, longitudinal datas and so on. 
 
 **How does it help you answer your question?**
 
@@ -128,9 +124,7 @@ SET ride_length = ROUND(Extract(epoch FROM (ended_at - started_at)/60), 2)
 ```
 
 
-Then I deleted the rows with null or empty values in order to get accurate analysis, validate and make sure the dataset does not include any bias, incorrect data, and duplicates.1006761 such rows were deleted. Then I deleted the rows with ride_length equals to zero or less than zero or more than 1440 minutes for data accuracy. 
-
-1473 such rows were deleted.
+Then I deleted the rows with null or empty values in order to get accurate analysis, validate and make sure the dataset does not include any bias, incorrect data, and duplicates. *1006761 such rows were deleted.* Then I deleted the rows with ride_length equals to zero or less than zero or more than 1440 minutes for data accuracy. *1473 such rows were deleted.*
 
 **Deleting rows with null, inaccurate and duplicate values:**
 
@@ -144,7 +138,7 @@ ride_length > 1440
 ```
 
 
-Then I used the COUNT and DISTINCT function to look for any duplications in the ride_id. Both total count and distinct count returned 4586829 rows which means there are no any duplications in the ride_id.
+Then I used the COUNT and DISTINCT function to look for any duplications in the ride_id. Both total count and distinct count returned 4586829 rows which means *there are no any duplications in the ride_id.*
 
 **Checking if there’s any duplication in rider id in ride_id column:**
 
@@ -161,7 +155,7 @@ FROM rider_data.rider_data2021
 
 ## Phase IV Analyze:
 
-I have combined both the analyze and share phase in this same section here since both go side by side. The tools I have used for data visualizing and sharing insights are postgresql, google sheets, tableau public and R studio.
+In this analyze phase of data analysis, the tools I have used for data visualizing are postgresql, google sheets, tableau public and R studio.
 
 
 ### Counting riders by the type of rider:
@@ -188,7 +182,7 @@ GROUP BY member_type
 ```
 
 
- This query returned the number of casual riders as 2047043 and number of member riders as 2539786 in the year 2021. To create visualization for this data I used “R”- downloaded the “tidyverse” package and used ggplot and geom functions to create a pie chart which shows that 55.5% of the riders are member riders and the remaining 44.6% are casual riders.
+ This query returned the number of *casual riders as 2047043* and *number of member riders as 2539786* in the year 2021. To create visualization for this data I used “R”- downloaded the “tidyverse” package and used ggplot and geom functions to create a pie chart which shows that 55.5% of the riders are member riders and the remaining 44.6% are casual riders.
 
 **Creating pie chart visualization in R:**
 
@@ -268,7 +262,7 @@ SET day_of_week = TRIM (TO_CHAR (started_at, 'Day'))
 ```
 
 
-Then with these columns, I can now extract information to visualize monthly and weekly ridership patterns of both the casual and member rider type to gain what insight those data offers to help us solve our business task on how casual and member riders differ on their ride usage patterns.I then used the following query in postgresql to calculate monthly rides by the type of riders.
+Then with these columns, I can now extract information to visualize monthly and weekly ridership patterns of both the casual and member rider type to gain what insight those data offers to help us solve our business task on how casual and member riders differ on their ride usage patterns. I then used the following query in postgresql to calculate monthly rides by the type of riders.
 
 **Calculating rides by rider type and month of a year:**
 
@@ -316,7 +310,7 @@ ggplot(ridecount_month, aes(x = fct_inorder(start_month), y = format(member_coun
                  
         Figure 3: Casual vs member ride use throughout the month
 
-The  tableau visualization with a side by side bar chart categorizing monthly ridership by rider type depicts that for both casual and member riders, _ridership peaked around July and hit the lowest at February_ before rebounding up sharply. Also, July and August seem to have received more casual riders than the member riders indicating that July and August can be an ideal month to do any marketing campaigns or programs to convert casual riders into member riders. The observations of ridership trends throughout the year indicate a seasonal pattern in cyclistic bike usage. It is more common for both members and casual riders to choose to ride in the summer months, when the weather is nice and the days are long and avoiding it in the cold winter and snowy months.
+The  tableau visualization with a side by side bar chart categorizing monthly ridership by rider type depicts that for both casual and member riders, *ridership peaked around July and hit the lowest at February* before rebounding up sharply. Also, July and August seem to have received more casual riders than the member riders indicating that July and August can be an ideal month to do any marketing campaigns or programs to convert casual riders into member riders. The observations of ridership trends throughout the year indicate a seasonal pattern in cyclistic bike usage. It is more common for both members and casual riders to choose to ride in the summer months, when the weather is nice and the days are long and avoiding it in the cold winter and snowy months.
 
 **Calculating rides by rider type and day of a week:**
 
